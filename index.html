@@ -1,0 +1,178 @@
+<html>
+
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
+    <meta content="utf-8" http-equiv="encoding"/>
+</head>
+
+<body>
+
+    <canvas id="canvas" width="800" height="800">
+
+        
+      <script>
+
+        var canvas, ctx;
+        var canvas_width, canvas_height;
+        
+        var ballX = 50;
+        var ballY = 50;
+
+        var ballSpeedX = 5;
+        var ballSpeedY = 5;
+
+        const BRICK_ROWS = 16;
+        const BRICK_COLS = 16;
+
+        const BRICK_WIDTH = 50;
+        const BRICK_HEIGHT = 50;
+
+        var brickArr = new Array(BRICK_ROWS * BRICK_COLS);
+
+
+        brickArr[5] = 'green';
+        brickArr[6] = 'green';
+        brickArr[7] = 'green';
+        brickArr[8] = 'green';
+        brickArr[9] = 'green';
+
+        brickArr[22] = 'green';
+        brickArr[21] = 'green';
+        brickArr[20] = 'green';
+
+        brickArr[23] = 'green';
+        brickArr[24] = 'green';
+        brickArr[25] = 'green';
+
+        brickArr[26] = 'green';
+        brickArr[27] = 'green';
+        brickArr[28] = 'green';
+
+        brickArr[36] = '#462300';
+        brickArr[37] = '#462300';
+        brickArr[38] = '#FFC20E';
+        brickArr[39] = '#FFC20E';
+        brickArr[40] = 'black';
+        brickArr[41] = '#FFC20E';
+        brickArr[42] = '#FFC20E';
+
+
+        brickArr[52] = '#FFC20E';
+        brickArr[51] = '#462300';
+        brickArr[53] = '#462300';
+        brickArr[54] = '#FFC20E';
+        brickArr[55] = '#FFC20E';
+        brickArr[56] = 'black';
+        brickArr[57] = '#FFC20E';
+        brickArr[58] = '#FFC20E';
+        brickArr[59] = '#FFC20E';
+
+        console.log(brickArr);
+
+        const FPS = 30;
+
+        var posX, posY;
+
+
+        window.onload = function () {
+
+          canvas = document.getElementById('canvas');
+          ctx = canvas.getContext("2d");
+
+          canvas_width = canvas.width;
+          canvas_height = canvas.height;
+
+
+          requestAnimationFrame(updateAll);
+
+          window.addEventListener("mousemove", onMouseMove);
+
+        }
+
+
+        function onMouseMove(evt) {
+
+          // console.log(canvas);
+
+          var rect = canvas.getBoundingClientRect();
+          var root = document.documentElement;
+
+          posX = evt.clientX - rect.left - root.scrollLeft;
+          posY = evt.clientY - rect.top - root.scrollTop;
+
+        }
+
+        var test = true;
+
+        function drawAll() {
+
+          
+          colorRect(0,0,canvas_width,canvas_height, 'black');
+
+
+            for (var row = 0; row < BRICK_ROWS; row++) {
+              for (var col = 0; col < BRICK_COLS; col++) {
+                // var arrayIndex = BRICK_COLS * row + col;
+                var arrayIndex = BRICK_COLS * row + col;
+                // console.log(arrayIndex);
+                // brickArr[arrayIndex]
+                var brickColor = brickArr[arrayIndex] || 'white'; 
+                colorRect(BRICK_WIDTH * col, BRICK_HEIGHT * row, BRICK_WIDTH - 2, BRICK_HEIGHT - 2, brickColor);
+              }
+            }
+
+
+          test = false;
+
+        }
+
+
+        function drawPaddle() {
+          
+        }
+
+
+        function updateAll() {
+          // moveAll();
+          drawAll();
+          requestAnimationFrame(updateAll);
+        }
+
+
+
+        function drawBricks() {
+
+        }
+
+
+
+        function colorRect(topLeftX, topLeftY, boxWidth, boxHeight, fillColor) {
+          ctx.fillStyle = fillColor;
+          ctx.fillRect(topLeftX, topLeftY, boxWidth, boxHeight);
+        }
+
+        function colorCircle(x, y, radius, color) {
+
+          ctx.fillStyle = color;
+          ctx.beginPath();
+          ctx.arc(x, y, radius, 0, Math.PI * 2, true);
+          ctx.fill();
+
+        }
+
+        function colorText(showWords, textX, textY, fillColor) {
+          ctx.fillStyle = fillColor;
+          ctx.fillText(showWords, textX, textY)
+        }
+
+
+
+
+      </script>
+
+
+    </canvas>
+
+</body>
+
+</html>
